@@ -16,7 +16,7 @@ def rebound_orbit(dt,intg='ias15',bodies=['Sun','Jupiter','Saturn','Churyumov-Ge
                        particle1='Jupiter',particle2='Churyumov-Gerasimenko',Noutputs=10000,plot=True):
     """
     Integrates orbits of solar system bodies using rebound, 
-        loosely follows example in https://rebound.readthedocs.io/en/latest/ipython_examples/Churyumov-Gerasimenko/
+        follows example in https://rebound.readthedocs.io/en/latest/ipython_examples/Churyumov-Gerasimenko/
 
     Parameters
     ----------
@@ -69,6 +69,8 @@ def rebound_orbit(dt,intg='ias15',bodies=['Sun','Jupiter','Saturn','Churyumov-Ge
     p2 = np.where(np.array(bodies)==particle2)[0][0]
     distance = np.sqrt(np.square(x[p1]-x[p2])+np.square(y[p1]-y[p2])+np.square(z[p1]-z[p2]))   
     tyear = times/year
+    closeencountertime = times[np.argmin(distance)]/year
+    print("Minimum distance (%f AU) occured at time: %f years." % (np.min(distance),closeencountertime))
     
     if plot==True:    
         # plot orbits over last 70 years
